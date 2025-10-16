@@ -67,3 +67,18 @@ console.log(courses);
 }
 
 getCourses();
+
+
+//Updating a document
+
+async function UpdatedCourse(id){
+    let course = await Course.findById(id)
+    if(!course) return;
+
+    course.name = 'C++';
+    course.creator = 'Vamshi';
+    const UpdatedCourse = await course.save();
+    console.log(UpdatedCourse);
+}
+
+UpdatedCourse('68efd7356d9c45a788fdafcd')
