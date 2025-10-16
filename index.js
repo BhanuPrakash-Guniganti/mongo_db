@@ -81,4 +81,13 @@ async function UpdatedCourse(id){
     console.log(UpdatedCourse);
 }
 
-UpdatedCourse('68efd7356d9c45a788fdafcd')
+//UpdatedCourse('68efd7356d9c45a788fdafcd')
+
+//Deleting a document
+
+async function deleteCourse(id){
+    let course = await Course.findByIdAndDelete(id)
+    console.log(course);
+}
+
+deleteCourse('68efd7356d9c45a788fdafcd')
