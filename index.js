@@ -9,9 +9,18 @@ mongoose.connect('mongodb://localhost:27017/myDataBase')
 //Schema
 
 const courseSchema = new mongoose.Schema({
-    name: { type: String, required: true },
+    name: { type: String, required: true , minlength: 5, maxlength: 255 },
 
-    category: { type: String,
+    tags:{ type: Array , validate: {
+        validator: function(tags){
+            return tags.length > 1
+        }
+    }
+
+    },
+
+    category: {
+         type: String,
         required: true,
         enum: ['web', 'mobile', 'network']
     },
@@ -28,6 +37,7 @@ async function createCourse(){
     const course = new Course({
         name:'Node.js Course',
         creator:'Abhi',
+        tags:['node','backend'],
         category:'web',
         isPublished:true,
        rating:4.5
