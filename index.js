@@ -9,10 +9,10 @@ mongoose.connect('mongodb://localhost:27017/myDataBase')
 //Schema
 
 const courseSchema = new mongoose.Schema({
-    name: String,
-    creator: String,
+    name: { type: String, required: true },
+    creator: { type: String, required: true },
     publishedDate: { type: Date, default: Date.now },
-    isPublished: Boolean,
+    isPublished: { type: String, required: true },
     rating : Number
 })
 
@@ -21,18 +21,21 @@ const Course = mongoose.model('Course', courseSchema);
 async function createCourse(){
     const course = new Course({
         name:'NodeJS',
-        creator:'Deekshith',
-        isPublished:true,
-        rating : 4.5
+       
     })
 
-    const result = await course.save();
+    try {
+        const result = await course.save();
     console.log(result);
+    } catch (error) {
+        console.log(error.message);
+    }
+    
 }
 
 // Rating : 1-5
 
-//createCourse();
+createCourse();
 
 
 //Comparison Query Operators
@@ -90,4 +93,4 @@ async function deleteCourse(id){
     console.log(course);
 }
 
-deleteCourse('68efd7356d9c45a788fdafcd')
+// deleteCourse('68efd7356d9c45a788fdafcd')
