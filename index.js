@@ -10,17 +10,27 @@ mongoose.connect('mongodb://localhost:27017/myDataBase')
 
 const courseSchema = new mongoose.Schema({
     name: { type: String, required: true },
+
+    category: { type: String,
+        required: true,
+        enum: ['web', 'mobile', 'network']
+    },
+
     creator: { type: String, required: true },
     publishedDate: { type: Date, default: Date.now },
     isPublished: { type: String, required: true },
-    rating : Number
+    rating : { type: Number ,required: function(){return this.isPublished} }
 })
 
 const Course = mongoose.model('Course', courseSchema);
 
 async function createCourse(){
     const course = new Course({
-        name:'NodeJS',
+        name:'Node.js Course',
+        creator:'Abhi',
+        category:'web',
+        isPublished:true,
+       rating:4.5
        
     })
 
